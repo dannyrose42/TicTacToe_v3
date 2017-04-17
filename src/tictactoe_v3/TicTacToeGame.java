@@ -11,6 +11,7 @@ public class TicTacToeGame {
     public final static int PLAYER_X = 1;
     public final static int PLAYER_O = 2;
     public final int GAME_SIZE;
+    public int turn;
     //public int [][] board; 
     
     private Max max;
@@ -37,12 +38,13 @@ public class TicTacToeGame {
     private int currentPlayer;
     
     
-    TicTacToeGame(int size, int firstPlayer){
+    TicTacToeGame(int size, int franksPlayer){
+        this.turn = 0;
         this.GAME_SIZE = size;        
-        this.board = new GameBoard(this, firstPlayer);
-        this.currentPlayer = firstPlayer;
-        this.steve = new Steve(this, PLAYER_O);
-        this.max = new Max(this, PLAYER_O);
+        this.board = new GameBoard(this, PLAYER_X);
+        this.currentPlayer = PLAYER_X;
+        //this.steve = new Steve(this, PLAYER_O);
+        this.max = new Max(this, franksPlayer);
         //Initilize empty board
         for (int row = 0; row < GAME_SIZE; row++) {
             for (int col = 0; col < GAME_SIZE; col++) {
@@ -61,14 +63,16 @@ public class TicTacToeGame {
         board.cells[row][col].SetPlayer(player);
         ToggleTurn();
     }
-    public void MakeAIMove(){
+    public int [] MakeAIMove(){
         int [] move = max.GetMove();
         PlayMove(max.myPlayer, move[0], move[1]);
 //        int [] move = steve.GetMove();
 //        PlayMove(steve.myPlayer, move[1], move[2]);
+        return move;
     }
     public void ToggleTurn(){
         currentPlayer =  (currentPlayer == PLAYER_X) ? PLAYER_O : PLAYER_X;
+        turn++;
     }
     public void DisableBoard(){
         board.DisableBoard();
