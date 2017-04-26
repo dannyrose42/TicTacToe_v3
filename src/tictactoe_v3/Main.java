@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package tictactoe_v3;
-import static tictactoe_v3.TicTacToeGame.PLAYER_X;
-import static tictactoe_v3.TicTacToeGame.PLAYER_O;
 
 /**
  *
@@ -19,25 +17,8 @@ public class Main {
 
     
     public static void main(String[] args) {
-        TicTacToeGame game = new TicTacToeGame(5, PLAYER_O);
-        while (game.IsGameOver() == false){
-            if (game.GetCurrentPlayer() == PLAYER_O){
-                int [] move = game.MakeAIMove();
-            }
-        }
-        if(game.HasPlayerWon(PLAYER_X)){
-            game.DisableBoard();
-            game.SetBoardText("Player X Wins!");
-        }else if (game.HasPlayerWon(PLAYER_O)){
-            game.DisableBoard();
-            game.SetBoardText("Player O Wins!");
-        }else if (game.IsCatsGame()){
-            game.DisableBoard();
-            game.SetBoardText("Draw");
-        }else{
-            game.DisableBoard();
-            game.SetBoardText("Good Job, you broke it");//Impossible case
-        }     
+        GameController gc = new GameController();
+        gc.run();    
     }
     
 }
