@@ -21,11 +21,19 @@ public class GameController implements Runnable{
     public GameController(){
         game = new TicTacToeGame(5, PLAYER_O);
         gameMode = 1;
-        nm = new NetworkManager("localhost", 9001);
+        nm = new NetworkManager("127.0.0.1", 9001);
+        System.out.println("NM UP");
     }
     
     @Override
     public void run() {
+        
+        System.out.println("In");
+        boolean first = nm.DoIGoFirst();
+        String text = (first) ? "First" : "Second";
+        game.SetBoardText(text);
+        System.out.println("Out");
+        
         if (gameMode == 1){
             PlayStandAloneGame();
         }
