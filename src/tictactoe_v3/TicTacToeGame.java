@@ -17,6 +17,7 @@ public class TicTacToeGame {
     private Max max;
     private GameBoard board;
     private Steve steve;
+    private StartMenu startMenu;
     
     
     private final long[]winningPatterns = {
@@ -41,10 +42,10 @@ public class TicTacToeGame {
     TicTacToeGame(int size, int franksPlayer){
         this.turn = 0;
         this.GAME_SIZE = size;        
-        this.board = new GameBoard(this, PLAYER_X);
         this.currentPlayer = PLAYER_X;
         //this.steve = new Steve(this, PLAYER_O);
         this.max = new Max(this, franksPlayer);
+        this.board = new GameBoard(this, PLAYER_X);
         //Initilize empty board
         for (int row = 0; row < GAME_SIZE; row++) {
             for (int col = 0; col < GAME_SIZE; col++) {
@@ -56,6 +57,11 @@ public class TicTacToeGame {
         board.setLocation(200, 200);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setVisible(true);
+//        startMenu = new StartMenu(this);    
+    }
+    
+    public void DisplayBoard(){
+        board.setVisible(true);
     }
     
     //Action Methods
@@ -66,8 +72,6 @@ public class TicTacToeGame {
     public int [] MakeAIMove(){
         int [] move = max.GetMove();
         PlayMove(max.myPlayer, move[0], move[1]);
-//        int [] move = steve.GetMove();
-//        PlayMove(steve.myPlayer, move[1], move[2]);
         return move;
     }
     public void ToggleTurn(){

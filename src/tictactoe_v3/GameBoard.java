@@ -20,6 +20,7 @@ public class GameBoard extends JFrame {
         this.game = game;
         cells = new GameCell[game.GAME_SIZE][game.GAME_SIZE];
         textField = new JTextField("Player " + game.GetPlayerString(firstPlayer) + " goes frst.");
+        textField.setEditable(false);
         
         //Build and assemble swint components
         Container pane = getContentPane();
