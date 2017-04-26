@@ -27,9 +27,10 @@ public class GameController implements Runnable{
     
     @Override
     public void run() {
-        
+        boolean first = false;
         System.out.println("In");
-        boolean first = nm.DoIGoFirst();
+        
+        if (nm.IsConnected())first = nm.DoIGoFirst();
         String text = (first) ? "First" : "Second";
         game.SetBoardText(text);
         System.out.println("Out");

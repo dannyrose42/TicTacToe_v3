@@ -19,8 +19,8 @@ import java.util.Random;
  */
 public class NetworkThread implements Runnable{
      
-    private final String hostName, role;
-    private boolean connected, running; 
+    public boolean connected, running;
+    private final String hostName, role; 
     private final int port;
     private ServerSocket serverSocket;
     private Socket socket;
@@ -36,6 +36,9 @@ public class NetworkThread implements Runnable{
         this.role = role;
         connected = false;
         this.thread = new Thread(this, role + "Thread");
+    }
+    public void Start(){
+        thread.start();
     }
     @Override
     public void run(){

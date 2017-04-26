@@ -24,8 +24,11 @@ public class NetworkManager implements Runnable{
     NetworkManager(String hostName, int port) {
         this.hostName = hostName;
         this.port = port;
+        
         this.serverThread = new NetworkThread(hostName, port, "server");
         this.clientThread = new NetworkThread(hostName, port, "client");
+        
+        serverThread.Start();
     }
     @Override
     public void run(){
@@ -38,6 +41,9 @@ public class NetworkManager implements Runnable{
         int firstPlayer = -1;
         while (firstPlayer == -1){firstPlayer = DetermineFirstPlayer();}
         return (firstPlayer == 1);
+    }
+    public boolean IsConnected(){
+        return (clientThread.connected && serverThread.connected);
     }
     public int GetOppMove(int turn){
         int oppMove;
