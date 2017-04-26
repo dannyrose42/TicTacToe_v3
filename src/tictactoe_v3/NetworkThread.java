@@ -95,11 +95,7 @@ public class NetworkThread implements Runnable{
     }
     //Establish connection as Server
     private boolean ConnectAsServer(){
-        System.out.println("A");
-        boolean result = InitializeServer();
-        System.out.println("B");
-        if (result) result = ListenForClient();
-        
+        boolean result;
         if (role.equals("server")){                  
             try {
                 System.out.println("A");

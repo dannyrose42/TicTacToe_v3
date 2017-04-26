@@ -37,13 +37,15 @@ public class NetworkManager implements Runnable{
         }
     }
     //Returns true if this player goes first
-    public boolean DoIGoFirst(){
+    public boolean GetFirstPlayer(){
         int firstPlayer = -1;
+        firstPlayer = DetermineFirstPlayer();
         while (firstPlayer == -1){firstPlayer = DetermineFirstPlayer();}
         return (firstPlayer == 1);
     }
     public boolean IsConnected(){
-        return (clientThread.connected && serverThread.connected);
+//        return (clientThread.connected && serverThread.connected);
+        return (serverThread.connected);
     }
     public int GetOppMove(int turn){
         int oppMove;
