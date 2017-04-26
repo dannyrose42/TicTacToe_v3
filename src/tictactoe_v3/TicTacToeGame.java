@@ -39,12 +39,10 @@ public class TicTacToeGame {
     private int currentPlayer;
     
     
-    TicTacToeGame(int size, int franksPlayer){
+    TicTacToeGame(int size){
         this.turn = 0;
         this.GAME_SIZE = size;        
         this.currentPlayer = PLAYER_X;
-        //this.steve = new Steve(this, PLAYER_O);
-        this.max = new Max(this, franksPlayer);
         this.board = new GameBoard(this, PLAYER_X);
         //Initilize empty board
         for (int row = 0; row < GAME_SIZE; row++) {
@@ -56,10 +54,15 @@ public class TicTacToeGame {
         board.setTitle("Tic Tac Toe");
         board.setLocation(200, 200);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        board.setVisible(true);
-//        startMenu = new StartMenu(this);    
+//        board.setVisible(true);    
     }
-    
+    public void SetAIPlayer(int player){
+        if(max == null){
+            max = new Max(this, player);
+        }else{
+            System.out.println("AI Playera already set");
+        }
+    }
     public void DisplayBoard(){
         board.setVisible(true);
     }

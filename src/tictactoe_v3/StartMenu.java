@@ -7,8 +7,6 @@ package tictactoe_v3;
 
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import tictactoe_v3.StartMenuObserver;
-import tictactoe_v3.TicTacToeGame;
 
 /**
  *
@@ -35,9 +31,9 @@ public class StartMenu extends JFrame {
     private Container pane;
     private StartMenuObserver smo;
     
-    public StartMenu(TicTacToeGame g){
+    public StartMenu(TicTacToeGame g, GameController gc){
         game = g;
-        smo = new StartMenuObserver(game, this);
+        smo = new StartMenuObserver(game, this, gc);
         //Build and assemble swing components
         textField = new JTextField("Please select game mode.");
         textField.setEditable(false);
@@ -92,5 +88,22 @@ public class StartMenu extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(200, 200);
         this.setVisible(true);
+    }
+    public int GetSelectedMode(){
+        int mode = -1;
+        if(standAloneModeRadioButton.isSelected()){
+            mode = 1;
+        }else if(networkModeRadioButton.isSelected()){
+            mode = 2;
+        }else{
+            System.out.println("Invalid Game Mode Selected");
+        }
+        return mode;
+    }
+    public String GetHost(){
+        return hostTextField.getText();
+    }
+    public int GetPort(){
+        return Integer.parseInt(portTextField.getText());
     }
 }

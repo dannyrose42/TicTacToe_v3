@@ -13,16 +13,22 @@ import static tictactoe_v3.TicTacToeGame.PLAYER_O;
 public class GameController implements Runnable{
     private TicTacToeGame game;
     private NetworkManager nm;
+    private StartMenu startMenu;
     
     private int gameMode;
     private String host;
     private int port;
+    private Thread controllerThread;
     
     public GameController(){
-        game = new TicTacToeGame(5, PLAYER_O);
-        gameMode = 1;
-        nm = new NetworkManager("127.0.0.1", 9001);
-        System.out.println("NM UP");
+        game = new TicTacToeGame(5);
+        startMenu = new StartMenu(game, this);
+        controllerThread = new Thread(this, "controllerThread");
+//        nm = new NetworkManager("127.0.0.1", 9001);
+
+    }
+    public void Start(){
+        controllerThread.start();
     }
     
     @Override
@@ -32,12 +38,6 @@ public class GameController implements Runnable{
         System.out.println("In");
         
         
-        
-        if (nm.IsConnected())first = nm.GetFirstPlayer();
-        String text = (first) ? "First" : "Second";
-        game.SetBoardText(text);
-        System.out.println("Out");
-        
         if (gameMode == 1){
             PlayStandAloneGame();
         }
@@ -46,6 +46,7 @@ public class GameController implements Runnable{
         }
     }
     public void PlayStandAloneGame(){
+        game.SetAIPlayer(PLAYER_O);
         try{
             while (game.IsGameOver() == false){
                 if (game.GetCurrentPlayer() == PLAYER_O){
@@ -68,6 +69,15 @@ public class GameController implements Runnable{
         }catch (Exception e){}
     }
     public void PlayNetworkGame(){
+
+//        nm = new NetworkManager("127.0.0.1", 9001);
+//        boolean first = false;
+//        int firstPlayer = -1;
+//        if (nm.IsConnected())first = nm.GetFirstPlayer();
+//        String text = (first) ? "First" : "Second";
+//        game.SetBoardText(text);
+//        System.out.println("Out");
+        
         try{
             while (game.IsGameOver() == false){
                 if (game.GetCurrentPlayer() == PLAYER_O){
@@ -91,5 +101,11 @@ public class GameController implements Runnable{
     }
     public void SetGameMode(int mode){
         gameMode = mode;
+    }
+    public void SetHost(String h){
+        host = h;
+    }
+    public void SetPort(int p){
+        port = p;
     }
 }

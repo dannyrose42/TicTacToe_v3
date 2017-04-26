@@ -16,15 +16,21 @@ public class StartMenuObserver implements ActionListener{
     
     private TicTacToeGame game;
     private StartMenu menu;
+    private GameController controller;
     
-    public StartMenuObserver(TicTacToeGame game, StartMenu menu){
-        this.game = game;
-        this.menu = menu;
+    public StartMenuObserver(TicTacToeGame g, StartMenu m, GameController gc ){
+        this.game = g;
+        this.menu = m;
+        this.controller = gc;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         menu.setVisible(false);
+        controller.SetGameMode(menu.GetSelectedMode());
+//        controller.SetHost(menu.GetHost());
+//        controller.SetPort(menu.GetPort());
         game.DisplayBoard();
+        controller.Start();
     }
 }
     
